@@ -23,12 +23,7 @@ func PyEval_InitThreads() {
 	C.PyEval_InitThreads()
 }
 
-//PyEval_ThreadsInitialized : https://docs.python.org/3/c-api/init.html#c.PyEval_ThreadsInitialized
-func PyEval_ThreadsInitialized() bool {
-	return C.PyEval_ThreadsInitialized() != 0
-}
-
-//PyEval_SaveThread : https://docs.python.org/3/c-api/init.html#c.PyEval_SaveThread
+// PyEval_SaveThread : https://docs.python.org/3/c-api/init.html#c.PyEval_SaveThread
 func PyEval_SaveThread() *PyThreadState {
 	return (*PyThreadState)(C.PyEval_SaveThread())
 }
@@ -48,12 +43,7 @@ func PyThreadState_Swap(tstate *PyThreadState) *PyThreadState {
 	return (*PyThreadState)(C.PyThreadState_Swap((*C.PyThreadState)(tstate)))
 }
 
-//PyEval_ReInitThreads : https://docs.python.org/3/c-api/init.html#c.PyEval_ReInitThreads
-func PyEval_ReInitThreads() {
-	C.PyEval_ReInitThreads()
-}
-
-//PyGILState_Ensure : https://docs.python.org/3/c-api/init.html#c.PyGILState_Ensure
+// PyGILState_Ensure : https://docs.python.org/3/c-api/init.html#c.PyGILState_Ensure
 func PyGILState_Ensure() PyGILState {
 	return PyGILState(C.PyGILState_Ensure())
 }

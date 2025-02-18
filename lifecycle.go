@@ -53,19 +53,7 @@ func Py_Finalize() {
 	C.Py_Finalize()
 }
 
-//Py_SetStandardStreamEncoding : https://docs.python.org/3/c-api/init.html#c.Py_SetStandardStreamEncoding
-func Py_SetStandardStreamEncoding(encoding, errors string) int {
-	cencoding := C.CString(encoding)
-	defer C.free(unsafe.Pointer(cencoding))
-
-	cerrors := C.CString(errors)
-	defer C.free(unsafe.Pointer(cerrors))
-
-	return int(C.Py_SetStandardStreamEncoding(cencoding, cerrors))
-
-}
-
-//Py_SetProgramName : https://docs.python.org/3/c-api/init.html#c.Py_SetProgramName
+// Py_SetProgramName : https://docs.python.org/3/c-api/init.html#c.Py_SetProgramName
 func Py_SetProgramName(name string) error {
 	cname := C.CString(name)
 	defer C.free(unsafe.Pointer(cname))
@@ -158,24 +146,7 @@ func Py_GetPath() (string, error) {
 	return C.GoString(cname), nil
 }
 
-//Py_SetPath : https://docs.python.org/3/c-api/init.html#c.Py_SetPath
-func Py_SetPath(path string) error {
-	cpath := C.CString(path)
-	defer C.free(unsafe.Pointer(cpath))
-
-	newPath := C.Py_DecodeLocale(cpath, nil)
-	if newPath == nil {
-		return fmt.Errorf("fail to call Py_DecodeLocale on '%s'", path)
-	}
-	C.Py_SetPath(newPath)
-
-	C.PyMem_RawFree(unsafe.Pointer(pythonPath))
-	pythonHome = newPath
-
-	return nil
-}
-
-//Py_GetVersion : https://docs.python.org/3/c-api/init.html#c.Py_GetVersion
+// Py_GetVersion : https://docs.python.org/3/c-api/init.html#c.Py_GetVersion
 func Py_GetVersion() string {
 	cversion := C.Py_GetVersion()
 	return C.GoString(cversion)
