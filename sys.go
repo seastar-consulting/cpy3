@@ -15,7 +15,7 @@ import (
 	"unsafe"
 )
 
-//PySys_GetObject : https://docs.python.org/3/c-api/sys.html#c.PySys_GetObject
+// PySys_GetObject : https://docs.python.org/3/c-api/sys.html#c.PySys_GetObject
 func PySys_GetObject(name string) *PyObject {
 	cname := C.CString(name)
 	defer C.free(unsafe.Pointer(cname))
@@ -23,7 +23,7 @@ func PySys_GetObject(name string) *PyObject {
 	return togo(C.PySys_GetObject(cname))
 }
 
-//PySys_SetObject : https://docs.python.org/3/c-api/sys.html#c.PySys_SetObject
+// PySys_SetObject : https://docs.python.org/3/c-api/sys.html#c.PySys_SetObject
 func PySys_SetObject(name string, v *PyObject) int {
 	cname := C.CString(name)
 	defer C.free(unsafe.Pointer(cname))
@@ -31,7 +31,7 @@ func PySys_SetObject(name string, v *PyObject) int {
 	return int(C.PySys_SetObject(cname, toc(v)))
 }
 
-//PySys_ResetWarnOptions : https://docs.python.org/3/c-api/sys.html#c.PySys_ResetWarnOptions
+// PySys_ResetWarnOptions : https://docs.python.org/3/c-api/sys.html#c.PySys_ResetWarnOptions
 func PySys_ResetWarnOptions() {
 	C.PySys_ResetWarnOptions()
 }
