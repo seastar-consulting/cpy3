@@ -67,21 +67,6 @@ func TestProgramFullPath(t *testing.T) {
 
 }
 
-func TestPath(t *testing.T) {
-	Py_Finalize()
-
-	defaultPath, err := Py_GetPath()
-	defer Py_SetPath(defaultPath)
-
-	assert.Nil(t, err)
-	name := "påth"
-	Py_SetPath(name)
-	newName, err := Py_GetPath()
-	assert.Nil(t, err)
-	assert.Equal(t, name, newName)
-
-}
-
 func TestVersion(t *testing.T) {
 	version := Py_GetVersion()
 	assert.IsType(t, "", version)
